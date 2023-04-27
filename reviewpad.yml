@@ -154,4 +154,9 @@ workflows:
       if: $hasFileExtensions([".md"])
       then:
         - $addLabel("ship")
-        - $merge()
+        - $squash()
+
+  - name: changes-critical-code
+    run:
+      if: $hasAnnotation("critical")
+      then: $warn("This pull request includes critical changes! Please review it carefully.")
